@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import io.ao9.crmspringcrud.entity.Customer;
 
@@ -26,7 +25,6 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    @Transactional
     public List<Customer> getCustomers() {
         Session theSession = getSession();
         Query<Customer> theQuery = theSession.createQuery("from Customer", Customer.class);
