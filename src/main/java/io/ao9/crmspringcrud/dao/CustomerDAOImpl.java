@@ -27,9 +27,31 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public List<Customer> getCustomers() {
         Session theSession = getSession();
-        Query<Customer> theQuery = theSession.createQuery("from Customer", Customer.class);
+        Query<Customer> theQuery = theSession.createQuery("from Customer order by lastName", Customer.class);
         List<Customer> theCustomers = theQuery.getResultList();        
         return theCustomers;
     }
 
+    @Override
+    public void saveCustomer(Customer theCustomer) {
+        Session theSession = getSession();
+        // save() is insert, update() is update
+        theSession.saveOrUpdate(theCustomer);
+    }
+
+    @Override
+    public Customer getCustomer(int theCustomerId) {
+        Session theSession = getSession();
+        return theSession.get(Customer.class, theCustomerId);
+    }
+
+    @Override
+    public void deleteCustomer(int theCustomerId) {
+        Session theSession = getSession();
+        Query theQuery = theSession.createQuery("delete from Customer where id=:customerId");
+        theQuery.setParameter("customerId", theCustomerId);
+        theQuery.executeUpdate();
+        // Customer theCustomer = theSession.get(Customer.class, theCustomerId);
+        // theSession.delete(theCustomer);
+    }
 }

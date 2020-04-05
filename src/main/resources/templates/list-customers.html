@@ -13,35 +13,34 @@
 	<title>List Customers</title>
 </head>
 
-<body>
-	<div id="wrapper">
-		<div id="header">
-			<h2>CRM - Customer Relationship Manager</h2>
-		</div>
-	</div>
+<body>	
+	<h1>CRM - Customer Relationship Manager</h1>
 	
-	<div id="container">	
-		<div id="content">
+	<input type="button" value="Add customer" class="btn btn-lg btn-primary" onclick="window.location.href='add'; return false;"/>
 				
-			<table class="table table-dark">
-				<thead>
-					<tr>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Email</th>
-					</tr>
-				</thead>
-				
-				<tbody>
-					<tr th:each="tempCustomer : ${customers}">
-						<td th:text="${tempCustomer.firstName}"/>
-						<td th:text="${tempCustomer.lastName}"/>
-						<td th:text="${tempCustomer.email}"/>
-					</tr>
-				</tbody>										
-			</table>
-		</div>	
-	</div>
+	<table class="table table-dark">
+		<thead>
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="tempCustomer : ${customers}">
+				<td th:text="${tempCustomer.firstName}"/>
+				<td th:text="${tempCustomer.lastName}"/>
+				<td th:text="${tempCustomer.email}"/>
+				<td>
+					<a type="button" class="btn btn-lg btn-success" th:href="@{/customer/update(customerId=${tempCustomer.id})}">Update</a>
+					<a type="button" class="btn btn-lg btn-danger" th:href="@{/customer/delete(customerId=${tempCustomer.id})}" onclick="if(!(confirm('Are you sure to delete?'))) return false">Delete</a>
+				</td>
+			</tr>
+		</tbody>										
+	</table>
+	
 </body>
 
 </html>
