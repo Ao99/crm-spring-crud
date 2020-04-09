@@ -15,16 +15,35 @@
 
 <body>	
 	<h1>CRM - Customer Relationship Manager</h1>
+
+	<div>
+        User: <span sec:authentication="name"></span>
+        <br>
+        Role(s): <span sec:authentication="principal.authorities"></span>
+	</div>
 	
-	<input type="button" value="Add customer" class="btn btn-lg btn-primary" onclick="window.location.href='add'; return false;"/>
-				
+	<div sec:authorize="hasRole('ROLE_ADMIN')">
+	This content is only shown to administrators.
+	</div>
+	<div sec:authorize="hasRole('MANAGER')">
+	This content is only shown to managers.
+	</div>
+	<div sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
+		<a type="button" class="btn btn-lg btn-primary" th:href="@{/customer/add}">Add customer</a>
+	</div>
+	
+	<a type="button" class="btn btn-lg btn-secondary" th:href="@{/}">Back</a>
+	<form th:action="@{/logout}" method="POST">
+		<input type="submit" value="Logout" class="btn btn-lg btn-danger">
+	</form>
+
 	<table class="table table-dark">
 		<thead>
 			<tr>
 				<th>First Name</th>
 				<th>Last Name</th>
 				<th>Email</th>
-				<th>Actions</th>
+				<th sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">Actions</th>
 			</tr>
 		</thead>
 		
@@ -33,7 +52,7 @@
 				<td th:text="${tempCustomer.firstName}"/>
 				<td th:text="${tempCustomer.lastName}"/>
 				<td th:text="${tempCustomer.email}"/>
-				<td>
+				<td sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
 					<a type="button" class="btn btn-lg btn-success" th:href="@{/customer/update(customerId=${tempCustomer.id})}">Update</a>
 					<a type="button" class="btn btn-lg btn-danger" th:href="@{/customer/delete(customerId=${tempCustomer.id})}" onclick="if(!(confirm('Are you sure to delete?'))) return false">Delete</a>
 				</td>

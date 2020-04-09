@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,8 +12,19 @@
     <title>Home</title>
 </head>
 <body>
-    <h1 class="display-3">Welcome!</h1>
-    <h1 class="display-5"><p th:text="${theDate}"/></h1>
+    <div sec:authorize="isAuthenticated()">
+        User: <span sec:authentication="name"></span>
+        <br>
+        Role(s): <span sec:authentication="principal.authorities"></span>
+    </div>
+
+    <p class="display-3"><p th:text="${theDate}"/></p>    
+    
+    <a type="button" class="btn btn-lg btn-primary" th:href="@{/customer/list}">Customer List</a>
+    <a type="button" class="btn btn-lg btn-primary" th:href="@{/manager}">Manager</a>
+    <a type="button" class="btn btn-lg btn-primary" th:href="@{/system}">System</a>
+    <br>
+
     <img width="1000" th:src="@{images/bg.jpg}"/>
 </body>
 </html>
