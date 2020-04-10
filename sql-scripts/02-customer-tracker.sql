@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `web_customer_tracker` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `web_customer_tracker`;
+CREATE DATABASE  IF NOT EXISTS `crud_customer_tracker` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `crud_customer_tracker`;
 -- MySQL dump 10.13  Distrib 5.6.13, for osx10.6 (i386)
 --
--- Host: 127.0.0.1    Database: web_customer_tracker
+-- Host: 127.0.0.1    Database: crud_customer_tracker
 -- ------------------------------------------------------
 -- Server version	5.6.16
 
